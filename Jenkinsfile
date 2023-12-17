@@ -1,6 +1,6 @@
-// docker.image
+// withDockerContainer
 node {
-    docker.image('python:3.12.1-alpine3.19').inside {
+    withDockerContainer('python:3.12.1-alpine3.19') {
         stage('Build') {
             sh 'python -m py_compile sources/add2vals.py sources/calc.py'
             stash name: 'compiled-results', includes: 'sources/*.py*'
@@ -18,9 +18,9 @@ node {
     }
 }
 
-// withDockerContainer
+// docker.image
 // node {
-//     withDockerContainer('python:3.12.1-alpine3.19') {
+//     docker.image('python:3.12.1-alpine3.19').inside {
 //         stage('Build') {
 //             sh 'python -m py_compile sources/add2vals.py sources/calc.py'
 //             stash name: 'compiled-results', includes: 'sources/*.py*'
