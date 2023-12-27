@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Manual Approval') {
             steps {
-                input "Please approve to proceed with deployment"
+                input "Lanjutkan ke tahap Deploy?"
             }
         }
         stage('Deploy') {
@@ -42,6 +42,7 @@ pipeline {
                 dir(path: env.BUILD_ID) {
                     unstash(name: 'compiled-results')
                     sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'"
+                    sleep(time: 60, unit: 'SECONDS')
                 }
             }
             post {
